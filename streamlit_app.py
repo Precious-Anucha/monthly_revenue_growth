@@ -66,9 +66,11 @@ lr_model.fit(X_train, y_train)
 
 y_pred = lr_model.predict(X_test)
 
-mae = mean_absolute_error(y_test, y_pred)
+st.write(mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
+)
+
 
 print(f"MAE: {mae}")
 print(f"RMSE: {rmse}")
@@ -92,3 +94,11 @@ print(next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
 
 
 st.write('Hello world!')
+
+st.markdown(f"**{selected_name}**")
+    st.write(f"Company: {employee_data2['Company Name']} / Department: {employee_data2['Department']} / Status: {employee_data2['Work Status']}")
+    st.write(f"### Prediction: {prediction_percentage}%")
+    fig, ax = plt.subplots(figsize=(4, 4))
+    wedges, _ = ax.pie([prediction_percentage, 100 - prediction_percentage], startangle=90, colors=[color, "lightgrey"], wedgeprops=dict(width=0.3))
+    plt.title(prediction_label)
+    st.pyplot(fig)
