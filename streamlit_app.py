@@ -21,7 +21,7 @@ df4 = pd.read_csv('Branch_04.csv')
 df = pd.concat([df1, df2, df3, df4])
 
 st.title('Data Before preprocessing')
-df = df.sort_values(by=['Branch_ID', 'Date'])
+df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
