@@ -18,7 +18,8 @@ df3 = pd.read_csv('Branch_03.csv')
 
 df = pd.concat([df1, df2, df3])
 
-st.write(df.head)
+data = df.head()
+st.write(data)
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
