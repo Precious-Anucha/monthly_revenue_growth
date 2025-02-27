@@ -9,13 +9,16 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-st.title('🎈 App Name')
+st.title('MonThly Revenue Prediction!')
+#st.title('🎈 App Name')
 
 df1 = pd.read_csv('Branch_01.csv')
 df2 = pd.read_csv('Branch_02.csv')
 df3 = pd.read_csv('Branch_03.csv')
 
 df = pd.concat([df1, df2, df3])
+
+df.write(df.head)
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
@@ -93,7 +96,7 @@ next_month['Predicted_Revenue_Growth'] = next_month_predictions
 print(next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
 
 
-st.write('Hello world!')
+
 
 # st.markdown(f"**{}**")
 #     st.write()
