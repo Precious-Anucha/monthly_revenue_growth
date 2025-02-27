@@ -89,7 +89,11 @@ df['Month'] = pd.to_datetime(df['Month'])
 next_month = df[df['Month'] == df['Month'].max()].copy()
 
 
+
+
 next_month['Month'] = next_month['Month'] + pd.DateOffset(months=1)
+
+selected_company = st.sidebar.selectbox("Select Company", filtered_df['Company Name'].unique())
 
 # Use previous month’s data as features
 next_month['Prev_Total_Deposits'] = next_month['Total_Deposits']
