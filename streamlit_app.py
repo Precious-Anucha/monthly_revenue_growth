@@ -21,11 +21,12 @@ df4 = pd.read_csv('Branch_04.csv')
 df = pd.concat([df1, df2, df3, df4])
 
 st.title('Data Before preprocessing')
+df = df.sort_values(by=['Branch_ID'])
 st.write(df.head())
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
-df = df.sort_values(by=['Branch_ID', 'Date'])
+# df = df.sort_values(by=['Branch_ID'])
 
 # Feature Engineering - Adding Lag & Rolling Features
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
