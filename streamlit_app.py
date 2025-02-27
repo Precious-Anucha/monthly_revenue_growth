@@ -54,7 +54,7 @@ st.write(X_train.head())
 # encoding branch_Name
 le = LabelEncoder()
 X_train['Branch_Name'] = le.fit_transform(X_train['Branch_Name'])
-X_test['Branch_Name'] = le.transform(X_train['Branch_Name'])
+X_test['Branch_Name'] = le.transform(X_test['Branch_Name'])
 
 
 # standard scaling on all features
