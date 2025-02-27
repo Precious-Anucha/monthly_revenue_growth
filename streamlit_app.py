@@ -53,10 +53,10 @@ le = LabelEncoder()
 df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
 # Outlier Removal (IQR Method)
-Q1 = df['Revenue_Growth'].quantile(0.25)
-Q3 = df['Revenue_Growth'].quantile(0.75)
-IQR = Q3 - Q1
-df = df[(df['Revenue_Growth'] >= Q1 - 1.5 * IQR) & (df['Revenue_Growth'] <= Q3 + 1.5 * IQR)]
+# Q1 = df['Revenue_Growth'].quantile(0.25)
+# Q3 = df['Revenue_Growth'].quantile(0.75)
+# IQR = Q3 - Q1
+# df = df[(df['Revenue_Growth'] >= Q1 - 1.5 * IQR) & (df['Revenue_Growth'] <= Q3 + 1.5 * IQR)]
 
 # Define features and target
 features = ['Branch_ID', 'Branch_Name', 'Month', 'Total_Deposits', 'Prev_Total_Deposits', 
