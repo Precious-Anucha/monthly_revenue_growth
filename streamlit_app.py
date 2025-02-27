@@ -66,10 +66,10 @@ lr_model.fit(X_train, y_train)
 
 y_pred = lr_model.predict(X_test)
 
-st.write(mae = mean_absolute_error(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
-)
+st.write(mae, rmse, r2)
 
 
 print(f"MAE: {mae}")
