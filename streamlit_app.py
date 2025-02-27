@@ -70,7 +70,7 @@ X_train_ss = scaler.fit_transform(X_train)
 X_test_ss = scaler.transform(X_test)
 
 # Train Model - Using Random Forest
-rf_model = LinearRegression(max_depth=4, random_state=42)
+rf_model = LinearRegression()
 rf_model.fit(X_train_ss, y_train)
 
 # Evaluation
