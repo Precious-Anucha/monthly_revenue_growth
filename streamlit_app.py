@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -52,13 +52,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 st.write("Training DataSet After preprocessing")
 st.write(X_train.head())
 
+#
+SS = StandardScaler()
+X_train_ss = SS.fit_transform(X_train)
+X_test_ss = SS.transform(X_test)
 
 # Train Model
 lr_model = LinearRegression()
-lr_model.fit(X_train, y_train)
+lr_model.fit(X_train_ss, y_train)
 
 # Evaluation
-y_pred = lr_model.predict(X_test)
+y_pred = lr_model.predict(X_test_ss)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
