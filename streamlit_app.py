@@ -21,7 +21,7 @@ df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Month'])
 
 # removing duplicates 
-df.drop_duplicates(inplace=True)
+df.drop_duplicates(columns =['Branch_ID', 'Branch_Name'], inplace=True)
 
 # showing the first 5 rows of the initial dataframe
 st.write(df.head())
