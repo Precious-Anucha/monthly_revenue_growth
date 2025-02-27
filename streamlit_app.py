@@ -14,6 +14,7 @@ st.title('Monthly Revenue Prediction')
 df1 = pd.read_csv('Branch_01.csv')
 df2 = pd.read_csv('Branch_02.csv')
 df3 = pd.read_csv('Branch_03.csv')
+df4 = pd.read_csv('Branch_04.csv')
 
 df = pd.concat([df1, df2, df3])
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
@@ -24,7 +25,7 @@ df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
 # removing duplicates 
-df.drop_duplicates(['Branch_ID', 'Branch_Name'], inplace=True)
+df.drop_duplicates(['Branch_ID'], inplace=True)
 
 # showing the first 5 rows of the dataframe after removing duplicates
 st.write(df.head())
