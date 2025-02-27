@@ -20,12 +20,15 @@ df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Month'])
 
-# removing duplicates 
-df.drop_duplicates(['Branch_ID', 'Branch_Name'], inplace=True)
-
 # showing the first 5 rows of the initial dataframe
 st.write(df.head())
 
+# removing duplicates 
+df.drop_duplicates(['Branch_ID', 'Branch_Name'], inplace=True)
+
+# showing the first 5 rows of the dataframe after removing duplicates
+st.write(df.head())
+st.write(df.shape)
 
 # Feature Engineering
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
