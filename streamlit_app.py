@@ -37,11 +37,10 @@ df['Prev_Loan_Approvals'] = df.groupby('Branch_ID')['Loan_Approvals'].shift(1)
 df['Prev_Revenue_Growth'] = df.groupby('Branch_ID')['Revenue_Growth'].shift(1)
 df.dropna(inplace=True)
 
-le = LabelEncoder()
-df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
+
 
 # Splitting the Data
-features = ['Branch_ID', 'Branch_Name', 'Month','Total_Deposits', 'Loan_Approvals', 'Customer_Satisfaction_Score']
+features = ['Branch_ID','Branch_Name', 'Month','Total_Deposits', 'Loan_Approvals', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
 
 X = df[features]
@@ -52,7 +51,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 st.write("Training DataSet After preprocessing")
 st.write(X_train.head())
 
-#
+# encoding branch_Name
+le = LabelEncoder()
+X_train['Branch_Name'] = le.fit_transform(X_train['Branch_Name'])
+X_test['Branch_Name'] = le.transform(X_train['Branch_Name'])
+
+
+# standard scaling on all features
 SS = StandardScaler()
 X_train_ss = SS.fit_transform(X_train)
 X_test_ss = SS.transform(X_test)
