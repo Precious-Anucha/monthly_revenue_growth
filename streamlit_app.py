@@ -74,7 +74,11 @@ y_pred = lr_model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
-st.write(mae, rmse, r2)
+
+st.title('Evaluation Metrics')
+st.write('MAE', r2)
+st.write('RMAE ', rmse, r2)
+st.write('R-Squared', r2)
 
 
 print(f"MAE: {mae}")
@@ -95,6 +99,6 @@ next_month['Prev_Revenue_Growth'] = next_month['Revenue_Growth']
 next_month_predictions = lr_model.predict(next_month[features])
 next_month['Predicted_Revenue_Growth'] = next_month_predictions
 
-output = df.DataFrame(next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
+output = (next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
 st.write(output)
 
