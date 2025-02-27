@@ -1,5 +1,6 @@
-streamlit>=1.26.0
+streamlit
 pandas
 matplotlib.pyplot
 sklearn
 numpy
+scikit-learn
