@@ -4,7 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.ensemble import RandomForestRegressor
+#from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 st.title('Monthly Revenue Prediction - Optimized')
@@ -68,7 +70,7 @@ X_train_ss = scaler.fit_transform(X_train)
 X_test_ss = scaler.transform(X_test)
 
 # Train Model - Using Random Forest
-rf_model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
+rf_model = LinearRegression(n_estimators=3, max_depth=4, random_state=42)
 rf_model.fit(X_train_ss, y_train)
 
 # Evaluation
