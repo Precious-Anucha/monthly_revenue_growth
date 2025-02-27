@@ -21,46 +21,37 @@ df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Month'])
 
-# showing the first 5 rows of the initial dataframe
+# Showing initial data
 st.write(df.head())
 
-# removing duplicates 
-df.drop_duplicates(['Branch_ID', 'Branch_Name'], inplace=True)
-
-# showing the first 5 rows of the dataframe after removing duplicates
-st.write(df.head())
-st.write(df.shape)
-
-# Feature Engineering
+# Feature Engineering: Create lag features
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
 df['Prev_Loan_Approvals'] = df.groupby('Branch_ID')['Loan_Approvals'].shift(1)
 df['Prev_Revenue_Growth'] = df.groupby('Branch_ID')['Revenue_Growth'].shift(1)
 df.dropna(inplace=True)
 
+# Encoding categorical variable before split to avoid leakage
+le = LabelEncoder()
+df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
-
-# Splitting the Data
-features = ['Branch_ID','Branch_Name', 'Month','Total_Deposits', 'Loan_Approvals', 'Customer_Satisfaction_Score']
+# Define features and target
+features = ['Branch_ID', 'Branch_Name', 'Month', 'Total_Deposits', 'Prev_Total_Deposits', 
+            'Loan_Approvals', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
 
 X = df[features]
 y = df[target]
 
+# Split data (Removed incorrect `stratify` parameter)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-st.write("Training DataSet After preprocessing")
+st.write("Training Data After Preprocessing")
 st.write(X_train.head())
 
-# encoding branch_Name
-le = LabelEncoder()
-X_train['Branch_Name'] = le.fit_transform(X_train['Branch_Name'])
-X_test['Branch_Name'] = le.transform(X_test['Branch_Name'])
-
-
-# standard scaling on all features
-SS = StandardScaler()
-X_train_ss = SS.fit_transform(X_train)
-X_test_ss = SS.transform(X_test)
+# Standard Scaling
+scaler = StandardScaler()
+X_train_ss = scaler.fit_transform(X_train)
+X_test_ss = scaler.transform(X_test)
 
 # Train Model
 lr_model = LinearRegression()
@@ -73,14 +64,14 @@ rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
 
 st.write("### Model Evaluation")
-st.write(f"MAE: {mae}")
-st.write(f"RMSE: {rmse}")
-st.write(f"R² Score: {r2}")
+st.write(f"MAE: {mae:.4f}")
+st.write(f"RMSE: {rmse:.4f}")
+st.write(f"R² Score: {r2:.4f}")
 
 # User Input for Prediction
 st.write("### Predict Revenue Growth")
 branch_id = st.number_input("Branch ID", min_value=int(df['Branch_ID'].min()), max_value=int(df['Branch_ID'].max()), step=1)
-branch_name = st.number_input("Branch Name (Encoded)", min_value=int(df['Branch_Name'].min()), max_value=int(df['Branch_Name'].max()), step=1)
+branch_name = st.selectbox("Branch Name", df['Branch_Name'].unique())
 current_total_deposits = st.number_input("Total Deposits", min_value=0.0, step=1000.0)
 prev_total_deposits = st.number_input("Previous Total Deposits", min_value=0.0, step=1000.0)
 loan_approvals = st.number_input("Previous Loan Approvals", min_value=0, step=1)
@@ -90,13 +81,19 @@ customer_satisfaction = st.slider("Customer Satisfaction Score", min_value=0, ma
 if st.button("Predict Revenue Growth"):
     input_data = pd.DataFrame({
         'Branch_ID': [branch_id],
-        'Branch_Name': [branch_name],
+        'Branch_Name': [branch_name],  # Using the encoded value
+        'Month': [df['Month'].max()],  # Assume prediction for the latest month
         'Total_Deposits': [current_total_deposits],
         'Prev_Total_Deposits': [prev_total_deposits],
-        'Prev_Loan_Approvals': [loan_approvals],
+        'Loan_Approvals': [loan_approvals],
+        'Prev_Loan_Approvals': [loan_approvals],  # Assuming previous = current if unknown
         'Prev_Revenue_Growth': [prev_revenue_growth],
         'Customer_Satisfaction_Score': [customer_satisfaction]
     })
-    prediction = lr_model.predict(input_data)
+
+    # Scale input data
+    input_data_ss = scaler.transform(input_data)
+    prediction = lr_model.predict(input_data_ss)
+    
     st.write(f"Predicted Revenue Growth: {prediction[0]:.2f}")
 
