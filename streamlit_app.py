@@ -30,7 +30,7 @@ le = LabelEncoder()
 df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
 # Splitting the Data
-features = ['Branch_ID', 'Branch_Name', 'Prev_Total_Deposits', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
+features = ['Branch_ID', 'Branch_Name', 'Total_Deposits', 'Prev_Total_Deposits', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
 
 X = df[features]
@@ -56,7 +56,8 @@ st.write(f"R² Score: {r2}")
 st.write("### Predict Revenue Growth")
 branch_id = st.number_input("Branch ID", min_value=int(df['Branch_ID'].min()), max_value=int(df['Branch_ID'].max()), step=1)
 branch_name = st.number_input("Branch Name (Encoded)", min_value=int(df['Branch_Name'].min()), max_value=int(df['Branch_Name'].max()), step=1)
-total_deposits = st.number_input("Previous Total Deposits", min_value=0.0, step=1000.0)
+current_total_deposits = st.number_input("Total Deposits", min_value=0.0, step=1000.0)
+prev_total_deposits = st.number_input("Previous Total Deposits", min_value=0.0, step=1000.0)
 loan_approvals = st.number_input("Previous Loan Approvals", min_value=0, step=1)
 prev_revenue_growth = st.number_input("Previous Revenue Growth", min_value=0.0, step=0.1)
 customer_satisfaction = st.slider("Customer Satisfaction Score", min_value=0, max_value=10, step=1)
@@ -65,7 +66,8 @@ if st.button("Predict Revenue Growth"):
     input_data = pd.DataFrame({
         'Branch_ID': [branch_id],
         'Branch_Name': [branch_name],
-        'Prev_Total_Deposits': [total_deposits],
+        'Total_Deposits': [current_total_deposits],
+        'Prev_Total_Deposits': [prev_total_deposits],
         'Prev_Loan_Approvals': [loan_approvals],
         'Prev_Revenue_Growth': [prev_revenue_growth],
         'Customer_Satisfaction_Score': [customer_satisfaction]
