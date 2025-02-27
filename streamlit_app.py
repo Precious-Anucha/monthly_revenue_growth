@@ -20,6 +20,10 @@ df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Month'])
 
+# showing the first 5 rows of the initial dataframe
+st.write(df.head())
+
+
 # Feature Engineering
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
 df['Prev_Loan_Approvals'] = df.groupby('Branch_ID')['Loan_Approvals'].shift(1)
