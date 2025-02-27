@@ -21,17 +21,22 @@ df4 = pd.read_csv('Branch_04.csv')
 df = pd.concat([df1, df2, df3, df4])
 
 st.title('Data Before preprocessing')
-df = df.sort_values(by=['Branch_ID'])
+df = df.sort_values(by=['Branch_ID', 'Date'])
 st.write(df.head())
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
-# df = df.sort_values(by=['Branch_ID'])
+# df = df.sort_values(by=['Branch_ID', 'Date'])
 
 # Feature Engineering - Adding Lag & Rolling Features
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
 df['Prev_Loan_Approvals'] = df.groupby('Branch_ID')['Loan_Approvals'].shift(1)
-df['Prev_Revenue_Growth'] = df.groupby('Branch_ID')['Revenue_Growth'].shift(1)
+#df['Prev_Revenue_Growth'] = df.groupby('Branch_ID')['Revenue_Growth'].shift(1)
+
+# Feature Engineering - difference between the current month and previous month
+df['change_in_deposit'] = df['Total_Deposits'] - df['Prev_Total_Deposits']
+df['change_in_loan_approvals'] = df['Loan_Approvals'] - df['Prev_Loan_Approvals']
+#df['change_in_revenue_growth'] = df['Revenue_Growth'] - df['Prev_Revenue_Growth']
 
 # 3-Month Rolling Features
 df['Rolling_Deposits_3M'] = df.groupby('Branch_ID')['Total_Deposits'].rolling(3).mean().reset_index(level=0, drop=True)
@@ -56,7 +61,7 @@ df = df[(df['Revenue_Growth'] >= Q1 - 1.5 * IQR) & (df['Revenue_Growth'] <= Q3 +
 # Define features and target
 features = ['Branch_ID', 'Branch_Name', 'Month', 'Total_Deposits', 'Prev_Total_Deposits', 
             'Loan_Approvals', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Rolling_Deposits_3M',
-            'Rolling_Loan_Approvals_3M', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score']
+            'Rolling_Loan_Approvals_3M', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score', 'change_in_deposit', 'change_in_loan_approvals', ']
 target = 'Revenue_Growth'
 
 X = df[features]
