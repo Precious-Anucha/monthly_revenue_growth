@@ -6,103 +6,70 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-st.title('MonThly Revenue Prediction!')
-#st.title('🎈 App Name')
+st.title('Monthly Revenue Prediction')
 
+# Load Data
 df1 = pd.read_csv('Branch_01.csv')
 df2 = pd.read_csv('Branch_02.csv')
 df3 = pd.read_csv('Branch_03.csv')
 
 df = pd.concat([df1, df2, df3])
-
-data = df.head()
-st.write(data)
-
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
-
-# df = df.sort_values(by=['Branch_ID', 'Month'])
 df = df.sort_values(by=['Branch_ID', 'Month'])
 
-print(df.info())
-
-pd.set_option('display.max_columns', None)
-
-
 # Feature Engineering
-
-
-# feature Selection
-#df.drop('Relationship_Manager_Name', inplace = True)
-
-#print(df.corr())
-
 df['Prev_Total_Deposits'] = df.groupby('Branch_ID')['Total_Deposits'].shift(1)
 df['Prev_Loan_Approvals'] = df.groupby('Branch_ID')['Loan_Approvals'].shift(1)
 df['Prev_Revenue_Growth'] = df.groupby('Branch_ID')['Revenue_Growth'].shift(1)
 df.dropna(inplace=True)
 
-
 le = LabelEncoder()
 df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
-
-
-
-# Splitting the data
-features = ['Branch_ID', 'Branch_Name', 'Relationship_Manager_ID', 'Prev_Total_Deposits',
-            'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
+# Splitting the Data
+features = ['Branch_ID', 'Branch_Name', 'Prev_Total_Deposits', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
-
 
 X = df[features]
 y = df[target]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-print(df.head())
-
-# instantiamte the linearRegression
+# Train Model
 lr_model = LinearRegression()
 lr_model.fit(X_train, y_train)
 
-
+# Evaluation
 y_pred = lr_model.predict(X_test)
-
 mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
 
-st.title('Evaluation Metrics')
-st.write('MAE', r2)
-st.write('RMAE ', rmse, r2)
-st.write('R-Squared', r2)
+st.write("### Model Evaluation")
+st.write(f"MAE: {mae}")
+st.write(f"RMSE: {rmse}")
+st.write(f"R² Score: {r2}")
 
+# User Input for Prediction
+st.write("### Predict Revenue Growth")
+branch_id = st.number_input("Branch ID", min_value=int(df['Branch_ID'].min()), max_value=int(df['Branch_ID'].max()), step=1)
+branch_name = st.number_input("Branch Name (Encoded)", min_value=int(df['Branch_Name'].min()), max_value=int(df['Branch_Name'].max()), step=1)
+total_deposits = st.number_input("Previous Total Deposits", min_value=0.0, step=1000.0)
+loan_approvals = st.number_input("Previous Loan Approvals", min_value=0, step=1)
+prev_revenue_growth = st.number_input("Previous Revenue Growth", min_value=0.0, step=0.1)
+customer_satisfaction = st.slider("Customer Satisfaction Score", min_value=0, max_value=10, step=1)
 
-print(f"MAE: {mae}")
-print(f"RMSE: {rmse}")
-print(f"R² Score: {r2}")
-
-df['Month'] = pd.to_datetime(df['Month'])
-next_month = df[df['Month'] == df['Month'].max()].copy()
-
-
-
-
-next_month['Month'] = next_month['Month'] + pd.DateOffset(months=1)
-
-selected_company = st.sidebar.selectbox("Select Company", filtered_df['Company Name'].unique())
-
-# Use previous month’s data as features
-next_month['Prev_Total_Deposits'] = next_month['Total_Deposits']
-next_month['Prev_Loan_Approvals'] = next_month['Loan_Approvals']
-next_month['Prev_Revenue_Growth'] = next_month['Revenue_Growth']
-
-next_month_predictions = lr_model.predict(next_month[features])
-next_month['Predicted_Revenue_Growth'] = next_month_predictions
-
-output = (next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
-st.write(output)
+if st.button("Predict Revenue Growth"):
+    input_data = pd.DataFrame({
+        'Branch_ID': [branch_id],
+        'Branch_Name': [branch_name],
+        'Prev_Total_Deposits': [total_deposits],
+        'Prev_Loan_Approvals': [loan_approvals],
+        'Prev_Revenue_Growth': [prev_revenue_growth],
+        'Customer_Satisfaction_Score': [customer_satisfaction]
+    })
+    prediction = lr_model.predict(input_data)
+    st.write(f"Predicted Revenue Growth: {prediction[0]:.2f}")
 
