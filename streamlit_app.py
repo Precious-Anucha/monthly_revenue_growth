@@ -60,8 +60,8 @@ df = df[(df['Revenue_Growth'] >= Q1 - 1.5 * IQR) & (df['Revenue_Growth'] <= Q3 +
 
 # Define features and target
 features = ['Branch_ID', 'Branch_Name', 'Month', 'Total_Deposits', 'Prev_Total_Deposits', 
-            'Loan_Approvals', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Rolling_Deposits_3M',
-            'Rolling_Loan_Approvals_3M', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score', 'change_in_deposit', 'change_in_loan_approvals', ']
+            'Loan_Approvals', 'Prev_Loan_Approvals', 'Rolling_Deposits_3M',
+            'Rolling_Loan_Approvals_3M', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score', 'change_in_deposit','change_in_loan_approvals']
 target = 'Revenue_Growth'
 
 X = df[features]
