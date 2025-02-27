@@ -1,0 +1,30 @@
+Branch_ID,Branch_Name,Relationship_Manager_ID,Relationship_Manager_Name,Month,Total_Deposits,Loan_Approvals,Revenue_Growth,Customer_Satisfaction_Score
+6,Computer_Village_Branch,96,Dr. Kathryn Hernandez,03/03/2033,471950.98,122,15.06,7.3
+2,Obalende_Branch,80,Michael Chan,03/09/2033,976048.82,133,-0.78,5.6
+7,Oba_AkranBranch,83,Edward Day,03/10/2033,948024.66,85,14.04,9.5
+3,Freedom_park_Branch,7,Hannah Hunt,03/03/2033,463021.27,186,11.49,7.1
+18,Badore_Branch,99,Amy Durham,03/03/2033,785079.08,72,4.35,6.7
+4,Ikota_Branch,53,Manuel Cantrell,03/07/2033,501908.17,14,7.4,8
+17,Marina_Branch,37,Kathryn Campbell,03/03/2033,700292.45,191,9.11,5.9
+12,Ikeja_Branch,58,Michelle Wood,03/08/2033,711618.89,179,8.03,6.1
+11,Victoria_Island_Branch,32,Michelle Patterson,03/07/2033,478738.8,57,13.38,6.1
+15,Ilupeju_Branch,39,Pamela Edwards,03/07/2033,642226.88,66,12.42,8
+16,Ikoyi_Branch,4,Heather Walker,03/06/2033,597449.91,124,-1.52,8.8
+9,Yaba_Branch,73,Jack Stevenson,03/08/2033,871848.35,171,8.25,7.6
+5,Allen_Branch,54,Linda Peters,03/03/2033,572269.54,93,15.03,8.8
+1,Lekki_Branch,55,Richard Gonzales,03/04/2033,748379.23,62,8.39,6.8
+14,Surulere_Branch,49,Michael Perry,03/09/2033,248025.74,192,0.4,7.6
+10,Ajah_Branch,81,Lisa Garrett,03/11/2033,334866.01,69,10.48,9.7
+8,Agege_Branch,34,Michelle Williams,03/12/2033,716867.08,171,1.57,7.2
+20,Badagry_Branch,92,Morgan Burns,03/10/2033,589309.22,190,-3.69,5
+19,Ogba_Branch,12,Jacob Barker,03/06/2033,759048.68,35,6.33,10
+13,Ojodu_Branch,91,Teresa Johnson,03/08/2033,241697.17,81,-0.49,6.1
+21,Yaba_Branch2,73,Jack Stevenson,03/08/2033,871848.35,171,8.25,7.6
+22,Allen_Branch2,54,Linda Peters,03/03/2033,572269.54,93,15.03,8.8
+23,Admiralty_Branch,55,Richard Gonzales,03/04/2033,748379.23,62,8.39,6.8
+24,Bode_Thomas_Branch,49,Michael Perry,03/09/2033,248025.74,192,0.4,7.6
+25,Ogombo_Branch,81,Lisa Garrett,03/11/2033,334866.01,69,10.48,9.7
+26,Ipaja_Branch,34,Michelle Williams,03/12/2033,716867.08,171,1.57,7.2
+27,Badagry_Branch2,92,Morgan Burns,03/10/2033,589309.22,190,-3.69,5
+28,Ifaki_Branch,12,Jacob Barker,03/06/2033,759048.68,35,6.33,10
+29,Ikorodu_Branch,91,Teresa Johnson,03/08/2033,241697.17,81,-0.49,6.1
