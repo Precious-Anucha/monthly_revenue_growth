@@ -16,7 +16,7 @@ df2 = pd.read_csv('Branch_02.csv')
 df3 = pd.read_csv('Branch_03.csv')
 df4 = pd.read_csv('Branch_04.csv')
 
-df = pd.concat([df1, df2, df3])
+df = pd.concat([df1, df2, df3, df4])
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Month'])
