@@ -25,7 +25,7 @@ df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
 # removing duplicates 
-df.drop_duplicates(['Branch_ID'], inplace=True)
+df.drop_duplicates(['Branch_ID', 'Branch_Name'], inplace=True)
 
 # showing the first 5 rows of the dataframe after removing duplicates
 st.write(df.head())
