@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-st.title('Monthly Revenue Prediction - Optimized')
+st.title('Monthly Revenue Prediction')
 
 # Load Data
 df1 = pd.read_csv('Branch_01.csv')
@@ -17,7 +17,12 @@ df2 = pd.read_csv('Branch_02.csv')
 df3 = pd.read_csv('Branch_03.csv')
 df4 = pd.read_csv('Branch_04.csv')
 
+# merging the various dataframes into one dataframe
 df = pd.concat([df1, df2, df3, df4])
+
+st.title('Data Before preprocessing')
+st.write(df.head())
+
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 df = df.sort_values(by=['Branch_ID', 'Date'])
