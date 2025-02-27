@@ -41,7 +41,7 @@ le = LabelEncoder()
 df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
 # Splitting the Data
-features = ['Branch_ID', 'Branch_Name', 'Month','Total_Deposits', 'Prev_Total_Deposits', 'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
+features = ['Branch_ID', 'Branch_Name', 'Month','Total_Deposits', 'Loan_Approvals', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
 
 X = df[features]
