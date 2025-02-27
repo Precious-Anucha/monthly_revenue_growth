@@ -57,6 +57,7 @@ features = ['Branch_ID', 'Branch_Name', 'Relationship_Manager_ID', 'Prev_Total_D
             'Prev_Loan_Approvals', 'Prev_Revenue_Growth', 'Customer_Satisfaction_Score']
 target = 'Revenue_Growth'
 
+
 X = df[features]
 y = df[target]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -94,15 +95,6 @@ next_month['Prev_Revenue_Growth'] = next_month['Revenue_Growth']
 next_month_predictions = lr_model.predict(next_month[features])
 next_month['Predicted_Revenue_Growth'] = next_month_predictions
 
-print(next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
+output = df.DataFrame(next_month[['Branch_ID', 'Month', 'Predicted_Revenue_Growth']])
+st.write(output)
 
-
-
-
-# st.markdown(f"**{}**")
-#     st.write()
-#     st.write()
-    # fig, ax = plt.subplots(figsize=(4, 4))
-    # wedges, _ = ax.pie([prediction_percentage, 100 - prediction_percentage], startangle=90, colors=[color, "lightgrey"], wedgeprops=dict(width=0.3))
-    # plt.title(prediction_label)
-    # st.pyplot(fig)
