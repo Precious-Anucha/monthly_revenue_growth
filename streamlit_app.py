@@ -119,8 +119,8 @@ if st.button("Predict Revenue Growth"):
         'Deposits_x_Satisfaction': [current_total_deposits * customer_satisfaction],
         'Loan_x_Satisfaction': [loan_approvals * customer_satisfaction],
         'Customer_Satisfaction_Score': [customer_satisfaction],
-        'change_in_deposit' = [change_in_deposit],
-        'change_in_loan_approvals' = [change_in_loan_approvals]
+        'change_in_deposit':[change_in_deposit],
+        'change_in_loan_approvals': [change_in_loan_approvals]
             
                 
     })
