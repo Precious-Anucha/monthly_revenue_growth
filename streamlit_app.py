@@ -24,6 +24,10 @@ st.title('Data Before preprocessing')
 df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
+st.write(df.var())
+
+
+
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
 df['Month'] = df['Date'].dt.month
 # df = df.sort_values(by=['Branch_ID', 'Date'])
