@@ -69,7 +69,7 @@ X = df[features]
 y = df[target]
 
 # Time-Based Train-Test Split (instead of random)
-#split_date = df['Date'].quantile(0.8)  # Use 80% for training
+split_date = df['Date'].quantile(0.8)  # Use 80% for training
 X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
 y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
 
