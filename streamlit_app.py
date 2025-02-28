@@ -113,8 +113,7 @@ if st.button("Predict Revenue Growth"):
         'Total_Deposits': [current_total_deposits],
         'Prev_Total_Deposits': [prev_total_deposits],
         'Loan_Approvals': [loan_approvals],
-        'Prev_Loan_Approvals': [loan_approvals],  
-        'Prev_Revenue_Growth': [prev_revenue_growth],
+        'Prev_Loan_Approvals': [loan_approvals], 
         'Rolling_Deposits_3M': [current_total_deposits],  # Assume rolling avg ≈ latest value
         'Rolling_Loan_Approvals_3M': [loan_approvals],  # Assume rolling avg ≈ latest value
         'Deposits_x_Satisfaction': [current_total_deposits * customer_satisfaction],
