@@ -22,6 +22,7 @@ df = pd.concat([df1, df2, df3, df4])
 
 st.title('Data Before preprocessing')
 df = df.sort_values(by=['Branch_ID', 'Month'])
+
 st.write(df.head())
 
 
