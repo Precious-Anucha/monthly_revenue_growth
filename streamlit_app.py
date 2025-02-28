@@ -42,8 +42,8 @@ df['change_in_loan_approvals'] = df['Loan_Approvals'] - df['Prev_Loan_Approvals'
 #df['change_in_revenue_growth'] = df['Revenue_Growth'] - df['Prev_Revenue_Growth']
 
 # 3-Month Rolling Features
-df['Rolling_Deposits_3M'] = df.groupby('Branch_ID')['Total_Deposits'].rolling(3).mean().reset_index(level=0, drop=True)
-df['Rolling_Loan_Approvals_3M'] = df.groupby('Branch_ID')['Loan_Approvals'].rolling(3).mean().reset_index(level=0, drop=True)
+#df['Rolling_Deposits_3M'] = df.groupby('Branch_ID')['Total_Deposits'].rolling(3).mean().reset_index(level=0, drop=True)
+#df['Rolling_Loan_Approvals_3M'] = df.groupby('Branch_ID')['Loan_Approvals'].rolling(3).mean().reset_index(level=0, drop=True)
 
 # Interaction Features
 df['Deposits_x_Satisfaction'] = df['Total_Deposits'] * df['Customer_Satisfaction_Score']
@@ -73,8 +73,6 @@ y = df[target]
 split_date = df['Date'].quantile(0.8)  # Use 80% for training
 X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
 y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
-
-
 
 st.write("Training Data After Preprocessing")
 st.write(X_train.head())
@@ -122,8 +120,6 @@ if st.button("Predict Revenue Growth"):
         'Prev_Total_Deposits': [prev_total_deposits],
         'Loan_Approvals': [loan_approvals],
         'Prev_Loan_Approvals': [prev_loan_approvals], 
-        #'Rolling_Deposits_3M': [current_total_deposits],  # Assume rolling avg ≈ latest value
-        #'Rolling_Loan_Approvals_3M': [loan_approvals],  # Assume rolling avg ≈ latest value
         'Deposits_x_Satisfaction': [current_total_deposits * customer_satisfaction],
         'Loan_x_Satisfaction': [loan_approvals * customer_satisfaction],
         'Customer_Satisfaction_Score': [customer_satisfaction],
@@ -139,5 +135,3 @@ if st.button("Predict Revenue Growth"):
     st.write(prediction)
 
 
-#'Rolling_Deposits_3M',
-#'Rolling_Loan_Approvals_3M',
