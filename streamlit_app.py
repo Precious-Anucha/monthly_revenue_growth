@@ -90,7 +90,7 @@ mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred)
 
-st.write("### Model Evaluation (After Improvements)")
+st.write("### Model Evaluation")
 st.write(f"MAE: {mae:.4f}")
 st.write(f"RMSE: {rmse:.4f}")
 st.write(f"R² Score: {r2:.4f}")
