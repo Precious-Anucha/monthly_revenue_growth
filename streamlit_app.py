@@ -74,7 +74,7 @@ split_date = df['Date'].quantile(0.8)  # Use 80% for training
 #X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
 #y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 st.write("Training Data After Preprocessing")
 st.write(X_train.head())
