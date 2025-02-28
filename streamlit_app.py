@@ -62,8 +62,7 @@ df['Branch_Name'] = le.fit_transform(df['Branch_Name'])
 
 # Define features and target
 features = ['Branch_ID', 'Branch_Name', 'Month', 'Total_Deposits', 'Prev_Total_Deposits', 
-            'Loan_Approvals', 'Prev_Loan_Approvals', 'Rolling_Deposits_3M',
-            'Rolling_Loan_Approvals_3M', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score', 'change_in_deposit','change_in_loan_approvals']
+            'Loan_Approvals', 'Prev_Loan_Approvals', 'Deposits_x_Satisfaction', 'Loan_x_Satisfaction', 'Customer_Satisfaction_Score', 'change_in_deposit','change_in_loan_approvals']
 target = 'Revenue_Growth'
 
 X = df[features]
@@ -71,11 +70,10 @@ y = df[target]
 
 # Time-Based Train-Test Split (instead of random)
 #split_date = df['Date'].quantile(0.8)  # Use 80% for training
-#X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
-#y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
+X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
+y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 st.write("Training Data After Preprocessing")
 st.write(X_train.head())
@@ -123,8 +121,8 @@ if st.button("Predict Revenue Growth"):
         'Prev_Total_Deposits': [prev_total_deposits],
         'Loan_Approvals': [loan_approvals],
         'Prev_Loan_Approvals': [prev_loan_approvals], 
-        'Rolling_Deposits_3M': [current_total_deposits],  # Assume rolling avg ≈ latest value
-        'Rolling_Loan_Approvals_3M': [loan_approvals],  # Assume rolling avg ≈ latest value
+        #'Rolling_Deposits_3M': [current_total_deposits],  # Assume rolling avg ≈ latest value
+        #'Rolling_Loan_Approvals_3M': [loan_approvals],  # Assume rolling avg ≈ latest value
         'Deposits_x_Satisfaction': [current_total_deposits * customer_satisfaction],
         'Loan_x_Satisfaction': [loan_approvals * customer_satisfaction],
         'Customer_Satisfaction_Score': [customer_satisfaction],
@@ -138,3 +136,7 @@ if st.button("Predict Revenue Growth"):
     input_data_ss = scaler.transform(input_data)
     prediction = rf_model.predict(input_data_ss)
     st.write(prediction)
+
+
+#'Rolling_Deposits_3M',
+#'Rolling_Loan_Approvals_3M',
