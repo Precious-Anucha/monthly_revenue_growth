@@ -102,7 +102,7 @@ branch_name = st.selectbox("Branch Name", df['Branch_Name'].unique())
 current_total_deposits = st.number_input("Total Deposits", min_value=0.0, step=1000.0)
 prev_total_deposits = st.number_input("Previous Total Deposits", min_value=0.0, step=1000.0)
 loan_approvals = st.number_input("Loan Approvals", min_value=0, step=1)
-prev_revenue_growth = st.number_input("Previous Revenue Growth", min_value=0.0, step=0.1)
+prev_loan_approvals = st.number_input("Prev_Loan Approvals", min_value=0, step=1)
 customer_satisfaction = st.slider("Customer Satisfaction Score", min_value=0, max_value=10, step=1)
 
 if st.button("Predict Revenue Growth"):
@@ -113,12 +113,16 @@ if st.button("Predict Revenue Growth"):
         'Total_Deposits': [current_total_deposits],
         'Prev_Total_Deposits': [prev_total_deposits],
         'Loan_Approvals': [loan_approvals],
-        'Prev_Loan_Approvals': [loan_approvals], 
+        'Prev_Loan_Approvals': [prev_loan_approvals], 
         'Rolling_Deposits_3M': [current_total_deposits],  # Assume rolling avg ≈ latest value
         'Rolling_Loan_Approvals_3M': [loan_approvals],  # Assume rolling avg ≈ latest value
         'Deposits_x_Satisfaction': [current_total_deposits * customer_satisfaction],
         'Loan_x_Satisfaction': [loan_approvals * customer_satisfaction],
-        'Customer_Satisfaction_Score': [customer_satisfaction]
+        'Customer_Satisfaction_Score': [customer_satisfaction],
+        'change_in_deposit' = [change_in_deposit],
+        'change_in_loan_approvals' = [change_in_loan_approvals]
+            
+                
     })
 
     # Scale input
