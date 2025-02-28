@@ -24,7 +24,8 @@ st.title('Data Before preprocessing')
 df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
-st.write(df.var())
+variance = df.var()
+st.write(variance)
 
 
 
