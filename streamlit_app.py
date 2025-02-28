@@ -127,6 +127,5 @@ if st.button("Predict Revenue Growth"):
 
     # Scale input
     input_data_ss = scaler.transform(input_data)
-    prediction = rf_model.predict
-
-            st.write(prediction)
+    prediction = rf_model.predict(input_data_ss)
+    st.write(prediction)
