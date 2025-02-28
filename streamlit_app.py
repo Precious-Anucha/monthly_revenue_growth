@@ -24,9 +24,6 @@ st.title('Data Before preprocessing')
 df = df.sort_values(by=['Branch_ID', 'Month'])
 st.write(df.head())
 
-variance = df.var()
-st.write(variance)
-
 
 
 df['Date'] = pd.to_datetime(df['Month'], format='%d/%m/%Y')
@@ -74,11 +71,17 @@ y = df[target]
 
 # Time-Based Train-Test Split (instead of random)
 split_date = df['Date'].quantile(0.8)  # Use 80% for training
-X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
-y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
+#X_train, X_test = X[df['Date'] <= split_date], X[df['Date'] > split_date]
+#y_train, y_test = y[df['Date'] <= split_date], y[df['Date'] > split_date]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random=42)
 
 st.write("Training Data After Preprocessing")
 st.write(X_train.head())
+
+#variance
+st.write(X_train.Var())
+
 
 # Standard Scaling
 scaler = StandardScaler()
